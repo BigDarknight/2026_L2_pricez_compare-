@@ -111,7 +111,13 @@ while True:
     # convert cost to correct formating
     cost = f"${cost_input:.2f}"
     # get price per unit and convert to currency format.
-    cost_per_raw = cost_input / amount
+    if unit == ['grams' or 'mills']:
+        amount_divided = amount / 1000
+        cost_per_raw = cost_input /  amount_divided
+        vari = "true"
+    else:
+        cost_per_raw = cost_input / amount
+        vari = "false"
     cost_per = f"${cost_per_raw:.2f}"
 
     all_items.append(item)
@@ -124,6 +130,9 @@ while True:
 price_compare_frame = pandas.DataFrame(price_clac_dict)
 #remove unneeded index
 price_compare_table = price_compare_frame.to_string(index=False)
+
+print("if you put in your unit as grams or mills then your price per will "
+      "be given in kilograms or liters")
 
 best = min(all_prices_per)
 
