@@ -10,61 +10,38 @@ def not_blank(question):
 
         print("sorry this cant be blank. please try again. \n")
 
-def num_checker(question, num_type="float", exit_code=None):
+def num_checker(question):
     """checks that the response is a float / integer more than zero"""
 
-    if num_type == "float":
-        error = "Please enter a number more than 0."
-
-    else:
-        error = "Please enter an integer more than 0."
+    error = "Oops - please enter a number more than zero"
 
     while True:
 
-        response = input(question)
+        response = input(question).lower()
 
-        # check for exit code and return it if entered
-        if response == exit_code:
-            return response
 
-        # check datatype is correct and that
-        # number is more than zero
         try:
-
-            if num_type == "float":
-                response = float(response)
-            else:
-                response = int(response)
+            # change the response to an integer and check that it's more than zero
+            response = float(response)
 
             if response > 0:
                 return response
             else:
                 print(error)
-
         except ValueError:
             print(error)
+
 
 def instructions():
     print("ℹ️ℹ️ℹ️ instructions ℹ️ℹ️ℹ️")
 
     print('''
-    
+
     please enter your budget, the cost of each item, and the weight of each item,
     then you will be given the best item you could buy with your budget. 
-    please use all the same unit. 
     ''')
 
-def yes_no(question):
-    """checks user response to question is yes or no/y or n then returns yes or no"""
-    while True:
-        response = input(question).lower()
-        #user says yes/no
-        if response == "yes" or response == "y":
-            return "yes"
-        elif response == "no" or response == "n":
-            return "no"
-        else:
-            print("please enter yes (y) or no (n) \n")
+
 
 def string_check(question, valid_ans_list, num_letters):
     """checks that the user enters the full word
@@ -106,7 +83,7 @@ print("💵💵💵price compare tool💵💵💵")
 
 # instructions
 
-want_instructions = yes_no("do you want instructions?")
+want_instructions = string_check("do you want instructions?", 'yes, no')
 
 if want_instructions == "yes":
     instructions()
