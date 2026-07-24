@@ -114,8 +114,12 @@ while True:
     cost_input = num_checker("please enter the cost of the item:")
     # convert cost to correct formating
     cost = f"${cost_input:.2f}"
+
+    print("unit: ", unit)
+
     # get price per unit and convert to currency format.
-    if unit == ['grams' or 'mills']:
+    if unit == 'grams' or unit == 'mills':
+        print("amount: ", amount)
         amount_divided = amount / 1000
         cost_per_raw = cost_input /  amount_divided
         vari = "true"
