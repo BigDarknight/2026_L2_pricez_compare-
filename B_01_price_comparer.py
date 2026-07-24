@@ -31,7 +31,6 @@ def num_checker(question):
         except ValueError:
             print(error)
 
-
 def instructions():
     print("ℹ️ℹ️ℹ️ instructions ℹ️ℹ️ℹ️")
 
@@ -40,8 +39,6 @@ def instructions():
     please enter your budget, the cost of each item, and the weight of each item,
     then you will be given the best item you could buy with your budget. 
     ''')
-
-
 
 def string_check(question, valid_ans_list, num_letters):
     """checks that the user enters the full word
@@ -59,6 +56,10 @@ def string_check(question, valid_ans_list, num_letters):
                 return item
 
         print(f"please choose an option from {valid_ans_list}")
+
+def currency(x):
+    """formats numbers as currency ($#.##)"""
+    return "${:.2f}".format(x)
 
 # main routine
 
@@ -83,12 +84,15 @@ print("💵💵💵price compare tool💵💵💵")
 
 # instructions
 
-want_instructions = string_check("do you want instructions?", 'yes, no')
+want_instructions = string_check("do you want instructions?",
+                                  ('yes', 'no'),  1)
+
 
 if want_instructions == "yes":
-    instructions()
+    print(instructions())
 
 budget = num_checker("please enter your budget:")
+budget_money = f"${budget:.2f}"
 
 print(f"your budget is {budget}")
 
@@ -118,13 +122,13 @@ while True:
     else:
         cost_per_raw = cost_input / amount
         vari = "false"
-    cost_per = f"${cost_per_raw:.2f}"
+    # cost_per = f"${cost_per_raw:.2f}"
 
     all_items.append(item)
     all_amounts.append(amount)
     all_units.append(unit)
     all_prices.append(cost)
-    all_prices_per.append(cost_per)
+    all_prices_per.append(cost_per_raw)
 
 #create table
 price_compare_frame = pandas.DataFrame(price_clac_dict)
@@ -132,7 +136,7 @@ price_compare_frame = pandas.DataFrame(price_clac_dict)
 price_compare_table = price_compare_frame.to_string(index=False)
 
 print("if you put in your unit as grams or mills then your price per will "
-      "be given in kilograms or liters")
+      "be given in kilograms or liters  ")
 
 best = min(all_prices_per)
 
@@ -140,8 +144,7 @@ print(price_compare_table)
 
 print(f"the best item you can buy costs {best} per unit")
 
-max_buyable = budget / best
-print(max_buyable)
+
 
 
 
